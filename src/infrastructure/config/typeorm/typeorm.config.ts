@@ -32,14 +32,17 @@ import { FormacionAcademicaOrmEntity } from 'src/infrastructure/persistence/type
 import { ObservacionClinicaOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/observacion-clinica.entity';
 import { NivelActividadFisicaOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/nivel-actividad-fisica.entity';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { EnvironmentConfigService } from '../environment-config/environment-config.service';
 
-export const AppDataSource: TypeOrmModuleOptions = {
+export const AppDataSource = (
+  config: EnvironmentConfigService,
+): TypeOrmModuleOptions => ({
   type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: 'root',
-  database: 'nutrifit_supervisor',
+  host: config.getDatabaseHost(),
+  port: config.getDatabasePort(),
+  username: config.getDatabaseUser(),
+  password: config.getDatabasePassword(),
+  database: config.getDatabaseName(),
   entities: [
     AgendaOrmEntity,
     DiaSemanaOrmEntity,
@@ -66,7 +69,7 @@ export const AppDataSource: TypeOrmModuleOptions = {
     ObservacionClinicaOrmEntity,
     NivelActividadFisicaOrmEntity,
   ],
-  migrations: ['src/migrations/*.ts'],
+  migrations: ['src/infrastructure/migrations/*.ts'],
   synchronize: false,
   logging: true,
-};
+});

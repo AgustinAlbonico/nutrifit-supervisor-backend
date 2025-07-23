@@ -4,6 +4,7 @@ import { TurnoEntity } from 'src/domain/entities/Turno/turno.entity';
 import { UsuarioEntity } from 'src/domain/entities/Usuario/usuario.entity';
 import { ProfesionalEntity } from '../profesional.entity';
 import { Genero } from '../../Genero';
+import { PersonaRol } from '../../PersonaRol';
 
 export class NutricionistaEntity extends ProfesionalEntity {
   constructor(
@@ -11,7 +12,6 @@ export class NutricionistaEntity extends ProfesionalEntity {
     nombre: string,
     apellido: string,
     fechaNacimiento: Date,
-    email: string,
     telefono: string,
     genero: Genero,
     direccion: string,
@@ -28,7 +28,6 @@ export class NutricionistaEntity extends ProfesionalEntity {
       nombre,
       apellido,
       fechaNacimiento,
-      email,
       telefono,
       genero,
       direccion,
@@ -40,5 +39,9 @@ export class NutricionistaEntity extends ProfesionalEntity {
       formacionAcademica,
       turnos,
     );
+  }
+
+  public getRol(): string {
+    return PersonaRol.PROFESIONAL;
   }
 }

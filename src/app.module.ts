@@ -1,10 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { InfrastructureModule } from './infrastructure/infrastructure.module';
-import { AppDataSource } from './config/typeorm.config';
+import { AppDataSource } from './infrastructure/config/typeorm/typeorm.config';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(AppDataSource), InfrastructureModule],
+  imports: [
+    TypeOrmModule.forRoot(AppDataSource),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    InfrastructureModule,
+  ],
   controllers: [],
   providers: [],
 })

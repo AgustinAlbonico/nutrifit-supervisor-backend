@@ -7,7 +7,6 @@ export abstract class PersonaEntity {
   apellido: string;
   fechaNacimiento: Date;
   genero: Genero;
-  email: string;
   telefono: string;
   direccion: string;
   ciudad: string;
@@ -19,7 +18,6 @@ export abstract class PersonaEntity {
     nombre: string,
     apellido: string,
     fechaNacimiento: Date,
-    email: string,
     telefono: string,
     genero: Genero,
     direccion: string,
@@ -31,7 +29,6 @@ export abstract class PersonaEntity {
     this.nombre = nombre;
     this.apellido = apellido;
     this.fechaNacimiento = fechaNacimiento;
-    this.email = email;
     this.telefono = telefono;
     this.genero = genero;
     this.direccion = direccion;
@@ -39,4 +36,6 @@ export abstract class PersonaEntity {
     this.provincia = provincia;
     this.usuario = usuario;
   }
+
+  public abstract getRol(): string;
 }
