@@ -1,24 +1,24 @@
 export class FormacionAcademicaEntity {
-  id: string;
+  idFormacionAcademica: number | null;
   titulo: string;
   institucion: string;
-  fechaInicio: Date;
-  fechaFin: Date;
+  añoComienzo: number;
+  añoFin: number;
   nivel: string;
 
   constructor(
-    id: string,
+    idFormacionAcademica: number | null = null,
     titulo: string,
     institucion: string,
-    fechaInicio: Date,
-    fechaFin: Date,
+    añoComienzo: number,
+    añoFin: number,
     nivel: string,
   ) {
-    this.id = id;
+    this.idFormacionAcademica = idFormacionAcademica;
     this.titulo = titulo;
     this.institucion = institucion;
-    this.fechaInicio = fechaInicio;
-    this.fechaFin = fechaFin;
+    this.añoComienzo = añoComienzo;
+    this.añoFin = añoFin;
     this.nivel = nivel;
   }
 }

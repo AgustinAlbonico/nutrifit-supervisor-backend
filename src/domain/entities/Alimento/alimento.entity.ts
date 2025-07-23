@@ -2,7 +2,7 @@ import { GrupoAlimenticio } from './grupo-alimenticio.entity';
 import { UnidadMedida } from './UnidadMedida';
 
 export class Alimento {
-  idAlimento: string;
+  idAlimento: number | null;
   nombre: string;
   cantidad: number;
   unidadMedida: UnidadMedida;
@@ -13,7 +13,7 @@ export class Alimento {
   grasas: number | null;
   hidratosDeCarbono: number | null;
   constructor(
-    idAlimento: string,
+    idAlimento: number | null = null,
     nombre: string,
     cantidad: number,
     unidadMedida: UnidadMedida,

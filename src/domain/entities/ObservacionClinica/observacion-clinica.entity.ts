@@ -1,7 +1,5 @@
 export class ObservacionClinicaEntity {
-  idObservacion: string;
-  fechaObservacion: Date;
-  horaObservacion: string;
+  idObservacion: number | null;
   comentario: string;
   peso: number;
   altura: number;
@@ -12,9 +10,7 @@ export class ObservacionClinicaEntity {
   circunferenciaCintura: number;
 
   constructor(
-    id: string,
-    fechaObservacion: Date,
-    horaObservacion: string,
+    idObservacion: number | null = null,
     comentario: string,
     peso: number,
     altura: number,
@@ -24,9 +20,7 @@ export class ObservacionClinicaEntity {
     habitosSocio: string | null = null,
     circunferenciaCintura: number,
   ) {
-    this.idObservacion = id;
-    this.fechaObservacion = fechaObservacion;
-    this.horaObservacion = horaObservacion;
+    this.idObservacion = idObservacion;
     this.comentario = comentario;
     this.peso = peso;
     this.altura = altura;

@@ -2,32 +2,47 @@ import { AgendaEntity } from '../../Agenda/agenda.entity';
 import { FormacionAcademicaEntity } from '../../FormacionAcademica/formacion-academica.entity';
 import { TurnoEntity } from '../../Turno/turno.entity';
 import { UsuarioEntity } from '../../Usuario/usuario.entity';
+import { Genero } from '../Genero';
 import { PersonaEntity } from '../persona.entity';
 
-export class ProfesionalEntity extends PersonaEntity {
+export abstract class ProfesionalEntity extends PersonaEntity {
+  matricula: string;
   añosExperiencia: number;
-  telefono: string;
   agenda: AgendaEntity | null;
   formacionAcademica: FormacionAcademicaEntity[];
   turnos: TurnoEntity[];
 
   constructor(
-    id: string,
+    idPersona: number | null = null,
     nombre: string,
     apellido: string,
     fechaNacimiento: Date,
     email: string,
     telefono: string,
+    genero: Genero,
+    direccion: string,
+    ciudad: string,
+    provincia: string,
     usuario: UsuarioEntity | null = null,
     experiencia: number,
     agenda: AgendaEntity | null = null,
     formacionAcademica: FormacionAcademicaEntity[] = [],
     turnos: TurnoEntity[] = [],
   ) {
-    super(id, nombre, apellido, fechaNacimiento, email, telefono, usuario);
+    super(
+      idPersona,
+      nombre,
+      apellido,
+      fechaNacimiento,
+      email,
+      telefono,
+      genero,
+      direccion,
+      ciudad,
+      provincia,
+      usuario,
+    );
     this.añosExperiencia = experiencia;
-    this.email = email;
-    this.telefono = telefono;
     this.agenda = agenda;
     this.formacionAcademica = formacionAcademica;
     this.turnos = turnos;

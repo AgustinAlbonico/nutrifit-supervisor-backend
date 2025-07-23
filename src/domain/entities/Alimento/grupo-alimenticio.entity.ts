@@ -1,8 +1,8 @@
 export class GrupoAlimenticio {
-  idGrupoAlimenticio: string;
+  idGrupoAlimenticio: number | null;
   descripcion: string;
 
-  constructor(idGrupoAlimenticio: string, descripcion: string) {
+  constructor(idGrupoAlimenticio: number | null = null, descripcion: string) {
     this.idGrupoAlimenticio = idGrupoAlimenticio;
     this.descripcion = descripcion;
   }

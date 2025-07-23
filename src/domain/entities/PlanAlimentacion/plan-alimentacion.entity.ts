@@ -2,13 +2,13 @@ import { OpcionComidaEntity } from '../OpcionComida/opcion-comida.entity';
 import { NutricionistaEntity } from '../Persona/Profesional/Nutricionista/nutricionista.entity';
 
 export class PlanAlimentacionEntity {
-  idPlanAlimentacion: string;
+  idPlanAlimentacion: number | null;
   fechaCreacion: Date;
   objetivoNutricional: string;
   opcionesAlimentarias: OpcionComidaEntity[];
   nutricionista: NutricionistaEntity;
   constructor(
-    idPlanAlimentacion: string,
+    idPlanAlimentacion: number | null = null,
     fechaCreacion: Date,
     objetivoNutricional: string,
     opcionesAlimentarias: OpcionComidaEntity[] = [],

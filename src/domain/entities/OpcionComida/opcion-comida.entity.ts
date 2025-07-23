@@ -2,12 +2,12 @@ import { Alimento } from '../Alimento/alimento.entity';
 import { TipoComida } from './TipoComida';
 
 export class OpcionComidaEntity {
-  idOpcionComida: string;
+  idOpcionComida: number | null;
   tipoComida: TipoComida;
   descripcion: string | null;
   alimentos: Alimento[];
   constructor(
-    idOpcionComida: string,
+    idOpcionComida: number | null = null,
     tipoComida: TipoComida,
     descripcion: string | null = null,
     alimentos: Alimento[] = [],

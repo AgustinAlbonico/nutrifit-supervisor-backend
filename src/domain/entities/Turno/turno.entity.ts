@@ -2,14 +2,14 @@ import { ObservacionClinicaEntity } from '../ObservacionClinica/observacion-clin
 import { EstadoTurno } from './EstadoTurno';
 
 export class TurnoEntity {
-  idTurno: string;
+  idTurno: number | null;
   fechaTurno: Date;
   HoraTurno: string;
   estadoTurno: EstadoTurno;
   observacionClinica: ObservacionClinicaEntity | null;
 
   constructor(
-    idTurno: string,
+    idTurno: number | null = null,
     fechaTurno: Date,
     HoraTurno: string,
     estadoTurno: EstadoTurno,

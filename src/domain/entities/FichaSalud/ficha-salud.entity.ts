@@ -1,23 +1,25 @@
+import { AlergiaEntity } from './alergia.entity';
 import { NivelActividadFisica } from './NivelActividadFisica';
+import { PatologiaEntity } from './patologia.entity';
 
 export class FichaSaludEntity {
-  idFichaSalud: string;
+  idFichaSalud: number | null;
   fechaCreacion: Date;
   nivelActividadFisica: NivelActividadFisica;
   peso: number;
   altura: number;
-  patologias: string[];
-  alergias: string[];
+  patologias: PatologiaEntity[];
+  alergias: AlergiaEntity[];
   objetivoPersonal: string;
 
   constructor(
-    idFichaSalud: string,
-    fechaCreacion: Date,
+    idFichaSalud: number | null = null,
     nivelActividadFisica: NivelActividadFisica,
     peso: number,
     altura: number,
-    patologias: string[] = [],
-    alergias: string[] = [],
+    fechaCreacion: Date = new Date(),
+    patologias: PatologiaEntity[] = [],
+    alergias: AlergiaEntity[] = [],
     objetivoPersonal: string,
   ) {
     this.idFichaSalud = idFichaSalud;

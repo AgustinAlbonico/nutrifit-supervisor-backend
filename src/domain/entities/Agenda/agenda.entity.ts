@@ -1,7 +1,7 @@
 import { DiaSemana } from './dia-semana';
 
 export class AgendaEntity {
-  idAgenda: string;
+  idAgenda: number | null;
   diasDisponibles: DiaSemana[];
   horaInicio: string;
   horaFin: string;

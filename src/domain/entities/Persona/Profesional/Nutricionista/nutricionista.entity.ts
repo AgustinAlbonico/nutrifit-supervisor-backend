@@ -3,15 +3,20 @@ import { FormacionAcademicaEntity } from 'src/domain/entities/FormacionAcademica
 import { TurnoEntity } from 'src/domain/entities/Turno/turno.entity';
 import { UsuarioEntity } from 'src/domain/entities/Usuario/usuario.entity';
 import { ProfesionalEntity } from '../profesional.entity';
+import { Genero } from '../../Genero';
 
 export class NutricionistaEntity extends ProfesionalEntity {
   constructor(
-    id: string,
+    idPersona: number | null = null,
     nombre: string,
     apellido: string,
     fechaNacimiento: Date,
     email: string,
     telefono: string,
+    genero: Genero,
+    direccion: string,
+    ciudad: string,
+    provincia: string,
     usuario: UsuarioEntity | null = null,
     experiencia: number,
     agenda: AgendaEntity | null = null,
@@ -19,12 +24,16 @@ export class NutricionistaEntity extends ProfesionalEntity {
     turnos: TurnoEntity[] = [],
   ) {
     super(
-      id,
+      idPersona,
       nombre,
       apellido,
       fechaNacimiento,
       email,
       telefono,
+      genero,
+      direccion,
+      ciudad,
+      provincia,
       usuario,
       experiencia,
       agenda,
