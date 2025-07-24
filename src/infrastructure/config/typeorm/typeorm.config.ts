@@ -69,7 +69,8 @@ export const AppDataSource = (
     ObservacionClinicaOrmEntity,
     NivelActividadFisicaOrmEntity,
   ],
-  migrations: ['src/infrastructure/migrations/*.ts'],
-  synchronize: false,
+  migrations: ['src/infrastructure/persistence/typeorm/migrations/*.ts'],
+  //BORRAR ESTO CUANDO SAQUE LA APP A PRODUCCION
+  synchronize: true,
   logging: true,
 });

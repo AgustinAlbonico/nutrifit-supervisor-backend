@@ -1,9 +1,11 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
+import { PersonaOrmEntity } from './persona.entity';
+import { PersonaEntity } from 'src/domain/entities/Persona/persona.entity';
 
 @Entity('usuario')
 export class UsuarioOrmEntity {
-  @PrimaryColumn({ name: 'nombre_usuario' })
-  nombreUsuario: string;
+  @PrimaryColumn({ name: 'email' })
+  email: string;
 
   @Column({ name: 'contrasenia', type: 'varchar', length: 255 })
   contraseña: string;
@@ -13,5 +15,11 @@ export class UsuarioOrmEntity {
     type: 'datetime',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  fechaHoraAlta: string;
+  fechaHoraAlta: Date;
+
+  @OneToOne(() => PersonaOrmEntity, (persona) => persona.idPersona, {
+    eager: true,
+    nullable: true,
+  })
+  usuario: PersonaEntity | null;
 }

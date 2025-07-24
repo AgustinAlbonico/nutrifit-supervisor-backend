@@ -6,6 +6,7 @@ import { AppDataSource } from './typeorm.config';
 
 @Module({
   imports: [
+    EnvironmentConfigModule,
     TypeOrmModule.forRootAsync({
       imports: [EnvironmentConfigModule],
       inject: [EnvironmentConfigService],

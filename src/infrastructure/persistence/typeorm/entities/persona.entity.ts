@@ -11,8 +11,6 @@ import {
 } from 'typeorm';
 import { GeneroOrmEntity } from './genero.entity';
 import { Genero } from 'src/domain/entities/Persona/Genero';
-import { UsuarioOrmEntity } from './usuario.entity';
-import { UsuarioEntity } from 'src/domain/entities/Usuario/usuario.entity';
 import { AgendaOrmEntity } from './agenda.entity';
 import { AgendaEntity } from 'src/domain/entities/Agenda/agenda.entity';
 import { FormacionAcademicaOrmEntity } from './formacion-academica.entity';
@@ -57,12 +55,6 @@ export abstract class PersonaOrmEntity {
 
   @Column({ name: 'provincia', type: 'varchar', length: 100 })
   provincia: string;
-
-  @OneToOne(() => UsuarioOrmEntity, (usuario) => usuario.nombreUsuario, {
-    eager: true,
-    nullable: true,
-  })
-  usuario: UsuarioEntity | null;
 }
 
 @ChildEntity()
