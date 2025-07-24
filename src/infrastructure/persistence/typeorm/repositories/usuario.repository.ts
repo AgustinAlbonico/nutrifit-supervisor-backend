@@ -12,12 +12,11 @@ export class UsuarioRepositoryImplementation implements IUsuarioRepository {
     private readonly userRepository: Repository<UsuarioOrmEntity>,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async create(user: UsuarioEntity) {
     const { email, contraseña } = user;
     const newUser = new UsuarioOrmEntity();
     newUser.email = email;
-    newUser.contraseña = contraseña
+    newUser.contraseña = contraseña;
     return this.userRepository.save(newUser);
   }
 }

@@ -6,4 +6,4 @@ import { RepositoriesModule } from 'src/infrastructure/persistence/typeorm/repos
   providers: [],
   exports: [],
 })
-export class AuthModule {}
+export class TurnosModule {}
