@@ -71,6 +71,6 @@ export const AppDataSource = (
   ],
   migrations: ['src/infrastructure/persistence/typeorm/migrations/*.ts'],
   //BORRAR ESTO CUANDO SAQUE LA APP A PRODUCCION
-  synchronize: true,
+  synchronize: false,
   logging: true,
 });
