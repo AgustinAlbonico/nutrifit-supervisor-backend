@@ -1,51 +1,78 @@
-## 🧠 NutriFit Supervisor – Backend
+# 🧠 NutriFit Supervisor – Backend
 
-**NutriFit Supervisor** es el backend del proyecto final de tesis de la carrera Ingeniería en Sistemas de Información (UAI Rosario). El sistema está orientado a la digitalización de servicios profesionales de salud dentro de gimnasios, facilitando la conexión entre socios, nutricionistas y médicos deportólogos desde una plataforma web unificada.
+**NutriFit Supervisor** es el backend del proyecto final de tesis de la carrera Ingeniería en Sistemas de Información (UAI Rosario). El sistema está orientado a la digitalización de servicios profesionales de salud dentro de gimnasios de bienestar, facilitando la interacción entre **socios**, **nutricionistas** y **médicos deportólogos** a través de una plataforma web unificada.
 
-Este backend fue desarrollado con **NestJS**, **TypeScript** y **MySQL**, siguiendo una arquitectura modular basada en clases del dominio, principios SOLID y buenas prácticas de desarrollo web.
+Este backend fue desarrollado con **NestJS**, **TypeScript** y **MySQL**, siguiendo los principios de **Clean Architecture**, **SOLID** y buenas prácticas de diseño modular.
 
-### 🎯 Objetivo del proyecto
+---
 
-Brindar soporte tecnológico a gimnasios que deseen incorporar atención profesional personalizada en áreas de nutrición y medicina del deporte, permitiendo a los socios:
-- Consultar perfiles profesionales.
+## 🎯 Objetivo del proyecto
+
+Proveer soporte tecnológico a gimnasios que buscan incorporar atención profesional personalizada en las áreas de **nutrición** y **medicina del deporte**, permitiendo a los **socios**:
+
+- Consultar perfiles de profesionales.
 - Solicitar y gestionar turnos.
-- Completar fichas de salud.
-- Recibir observaciones clínicas y planes alimentarios.
+- Completar fichas de salud y antecedentes clínicos.
+- Recibir observaciones médicas y planes alimentarios personalizados.
 - Visualizar su progreso físico y nutricional.
 
-Y a los profesionales:
-- Cargar y consultar historias clínicas.
-- Gestionar su agenda.
-- Colaborar con el equipo técnico del gimnasio.
+Y a los **profesionales**:
 
-### 🔧 Tecnologías principales
+- Registrar y consultar historias clínicas.
+- Gestionar su agenda y disponibilidad.
+- Colaborar con el equipo multidisciplinario del gimnasio.
 
-- **NestJS** como framework principal.
-- **TypeScript** para tipado estático y robustez del código.
-- **MySQL** como sistema de gestión de base de datos relacional.
-- **TypeORM** para el mapeo objeto-relacional (ORM).
-- **JWT y Passport.js** para autenticación basada en roles (socio, profesional, asistente).
-- Arquitectura **modular y escalable**, lista para nuevas funcionalidades como IA e integración de pagos.
+---
 
-### 📐 Arquitectura
+## 🔧 Tecnologías principales
 
-El proyecto está dividido en módulos representativos del dominio, como:
-- `auth`: autenticación y autorización.
-- `socios`: gestión de usuarios finales.
-- `profesionales`: administración de perfiles de salud.
-- `turnos`: gestión de reservas.
-- `fichas`: manejo de datos clínicos.
-- `observaciones`: seguimiento y atención.
-- `notificaciones`: alertas internas del sistema.
+- **NestJS** como framework principal basado en Node.js.
+- **TypeScript** para programación fuertemente tipada y mantenible.
+- **MySQL** como base de datos relacional.
+- **TypeORM** como ORM para el mapeo de entidades del dominio.
+- **JWT y Passport.js** para autenticación segura basada en roles (`socio`, `profesional`, `asistente`).
+- Estructura basada en **Clean Architecture**: separación clara entre capa de dominio, aplicación, infraestructura y presentación.
 
-### 🔒 Seguridad
+---
 
-- Accesos protegidos con JWT y control de roles.
-- Hash de contraseñas con bcrypt.
-- Logs y auditorías de acceso a información sensible.
+## 📐 Arquitectura del sistema
 
-### 🧠 Futuras integraciones
+El sistema está organizado en **módulos funcionales** que representan claramente las entidades del dominio, tales como:
 
-- Módulo de **inteligencia artificial** para sugerencias de planes alimentarios personalizados.
-- Integración con plataformas de pago y sistemas de facturación.
-- Soporte multi-gimnasio y panel administrativo global.
+- `auth`: autenticación, autorización y gestión de sesiones.
+- `socios`: administración de usuarios finales (clientes del gimnasio).
+- `profesionales`: gestión de perfiles médicos y nutricionales.
+- `turnos`: reserva, asignación y control de agendas.
+- `fichas`: fichas clínicas y antecedentes de salud.
+- `observaciones`: seguimiento clínico y nutricional.
+- `notificaciones`: alertas internas, recordatorios y comunicaciones.
+- `shared`: utilidades comunes e infraestructura compartida.
+
+La estructura sigue los principios de **Clean Architecture**, con separación de responsabilidades en capas:
+
+- **Domain**: entidades, interfaces y lógica central del negocio.
+- **Application**: casos de uso (services), DTOs y validaciones.
+- **Infrastructure**: acceso a datos (TypeORM), servicios externos, autenticación.
+- **Presentation**: controladores HTTP expuestos por NestJS.
+
+---
+
+## 🔒 Seguridad y buenas prácticas
+
+- Autenticación con JWT y control estricto de acceso por roles.
+- Contraseñas encriptadas con **bcrypt**.
+- Auditoría de eventos y logs de acceso a datos sensibles.
+- Validaciones exhaustivas de entrada mediante DTOs y pipes de NestJS.
+
+---
+
+## ⚙️ Variables de entorno
+
+Crear un archivo `.env` en la raíz del proyecto con las siguientes variables para configurar la conexión a la base de datos MySQL:
+
+```env
+DATABASE_HOST=localhost
+DATABASE_PORT=3306
+DATABASE_USER=root
+DATABASE_PASSWORD=root
+DATABASE_NAME=nutrifit_supervisor
