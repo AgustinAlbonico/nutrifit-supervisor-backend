@@ -8,6 +8,7 @@ import { AppLoggerService } from './infrastructure/common/logger/app-logger.serv
 import { LoggingInterceptor } from './infrastructure/common/logger/app-logger.interceptor';
 import { AppErrorFilter } from './infrastructure/common/filter/exception.filter';
 import { ValidationPipe } from '@nestjs/common';
+import { ApiResponse } from './infrastructure/common/responseHandler/api-response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -28,7 +29,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AppErrorFilter());
 
   //Interceptors
-  app.useGlobalInterceptors(new LoggingInterceptor(logger));
+  app.useGlobalInterceptors(new LoggingInterceptor(logger), new ApiResponse());
 
   //Express middleware
   app.use(helmet()); //Libreria de seguridad para la api
