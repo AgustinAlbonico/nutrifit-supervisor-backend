@@ -1,4 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
+import { ServerError } from 'src/domain/exceptions/custom-exceptions';
 
 @Controller('profesional')
 export class ProfesionalController {
@@ -6,6 +7,6 @@ export class ProfesionalController {
 
   @Get('/')
   getEskere(): string {
-    return 'asdasd';
+    throw new ServerError();
   }
 }
