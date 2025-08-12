@@ -3,10 +3,8 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TipoComidaOrmEntity } from './tipo-comida.entity';
 import { TipoComida } from 'src/domain/entities/OpcionComida/TipoComida';
 import { Alimento } from 'src/domain/entities/Alimento/alimento.entity';
 import { AlimentoOrmEntity } from './alimento.entity';
@@ -19,11 +17,7 @@ export class OpcionComidaOrmEntity {
   @Column({ name: 'comentarios', type: 'varchar', length: 255, nullable: true })
   comentarios: string | null;
 
-  @OneToOne(
-    () => TipoComidaOrmEntity,
-    (tipoComida) => tipoComida.idTipoComida,
-    { eager: true },
-  )
+  @Column({ name: 'tipo_comida', type: 'enum', enum: TipoComida })
   tipoComida: TipoComida;
 
   @ManyToMany(() => AlimentoOrmEntity, (alimento) => alimento.idAlimento, {

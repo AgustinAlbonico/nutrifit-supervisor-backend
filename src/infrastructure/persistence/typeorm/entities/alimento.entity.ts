@@ -3,10 +3,8 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { UnidadMedidaOrmEntity } from './unidad-medida.entity';
 import { UnidadMedida } from 'src/domain/entities/Alimento/UnidadMedida';
 import { GrupoAlimenticioOrmEntity } from './grupo-alimenticio.entity';
 import { GrupoAlimenticio } from 'src/domain/entities/Alimento/grupo-alimenticio.entity';
@@ -37,11 +35,7 @@ export class AlimentoOrmEntity {
   @Column({ name: 'hidratos_de_carbono', type: 'int', nullable: true })
   hidratosDeCarbono: number | null;
 
-  @ManyToOne(
-    () => UnidadMedidaOrmEntity,
-    (unidadMedida) => unidadMedida.idUnidadMedida,
-    { eager: true },
-  )
+  @Column({ name: 'unidad_medida', type: 'enum', enum: UnidadMedida })
   unidadMedida: UnidadMedida;
 
   @ManyToMany(() => GrupoAlimenticioOrmEntity, { eager: true })

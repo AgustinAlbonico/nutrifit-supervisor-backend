@@ -1,6 +1,14 @@
-import { Column, Entity, OneToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { PersonaOrmEntity } from './persona.entity';
 import { PersonaEntity } from 'src/domain/entities/Persona/persona.entity';
+import { RolOrmEntity } from './rol.entity';
 
 @Entity('usuario')
 export class UsuarioOrmEntity {
@@ -21,5 +29,12 @@ export class UsuarioOrmEntity {
     eager: true,
     nullable: true,
   })
-  usuario: PersonaEntity | null;
+  persona: PersonaEntity | null;
+
+  @ManyToOne(() => RolOrmEntity, (rol) => rol.idRol, {
+    eager: true,
+    nullable: false,
+  })
+  @JoinColumn({ name: 'rol_id' })
+  rol: RolOrmEntity;
 }

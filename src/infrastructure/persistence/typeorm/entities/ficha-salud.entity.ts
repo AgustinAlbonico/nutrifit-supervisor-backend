@@ -4,10 +4,9 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
-  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { NivelActividadFisicaOrmEntity } from './nivel-actividad-fisica.entity';
+
 import { PatologiaEntity } from 'src/domain/entities/FichaSalud/patologia.entity';
 import { AlergiaEntity } from 'src/domain/entities/FichaSalud/alergia.entity';
 import { Type } from 'class-transformer';
@@ -38,11 +37,11 @@ export class FichaSaludOrmEntity {
   })
   objetivoPersonal: string | null;
 
-  @ManyToOne(
-    () => NivelActividadFisicaOrmEntity,
-    (nivelActividadFisica) => nivelActividadFisica.idNivelActividadFisica,
-    { eager: true },
-  )
+  @Column({
+    name: 'nivel_actividad_fisica',
+    type: 'enum',
+    enum: NivelActividadFisica,
+  })
   nivelActividadFisica: NivelActividadFisica;
 
   @ManyToMany(() => PatologiaOrmEntity, {

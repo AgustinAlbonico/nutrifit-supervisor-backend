@@ -36,6 +36,4 @@ export abstract class PersonaEntity {
     this.provincia = provincia;
     this.usuario = usuario;
   }
-
-  public abstract getRol(): string;
 }

@@ -45,6 +45,4 @@ export abstract class ProfesionalEntity extends PersonaEntity {
     this.formacionAcademica = formacionAcademica;
     this.turnos = turnos;
   }
-
-  public abstract getRol(): string;
 }

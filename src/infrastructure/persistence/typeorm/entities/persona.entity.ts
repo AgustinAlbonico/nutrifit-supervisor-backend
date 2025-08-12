@@ -3,13 +3,11 @@ import {
   ChildEntity,
   Column,
   Entity,
-  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   TableInheritance,
 } from 'typeorm';
-import { GeneroOrmEntity } from './genero.entity';
 import { Genero } from 'src/domain/entities/Persona/Genero';
 import { AgendaOrmEntity } from './agenda.entity';
 import { AgendaEntity } from 'src/domain/entities/Agenda/agenda.entity';
@@ -36,9 +34,7 @@ export abstract class PersonaOrmEntity {
   @Type(() => Date)
   fechaNacimiento: Date;
 
-  @ManyToOne(() => GeneroOrmEntity, (genero) => genero.idGenero, {
-    eager: true,
-  })
+  @Column({ name: 'genero', type: 'enum', enum: Genero })
   genero: Genero;
 
   @Column({ name: 'email', type: 'varchar', length: 100, unique: true })
