@@ -17,7 +17,7 @@ enum VariablesEntorno {
 
 @Injectable()
 export class EnvironmentConfigService implements DatabaseConfig, AppConfig {
-  constructor(private configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   private getEnvironmentVariable<T>(key: string): T {
     try {

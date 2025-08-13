@@ -1,7 +1,5 @@
-import { UsuarioEntity } from '../../Usuario/usuario.entity';
 import { Genero } from '../Genero';
 import { PersonaEntity } from '../persona.entity';
-import { PersonaRol } from '../PersonaRol';
 
 export class AsistenteEntity extends PersonaEntity {
   constructor(
@@ -14,7 +12,6 @@ export class AsistenteEntity extends PersonaEntity {
     direccion: string,
     ciudad: string,
     provincia: string,
-    usuario: UsuarioEntity | null = null,
   ) {
     super(
       idPersona,
@@ -26,11 +23,6 @@ export class AsistenteEntity extends PersonaEntity {
       direccion,
       ciudad,
       provincia,
-      usuario,
     );
-  }
-
-  public getRol(): string {
-    return PersonaRol.ASISTENTE;
   }
 }

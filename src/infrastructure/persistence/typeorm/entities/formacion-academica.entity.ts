@@ -1,4 +1,12 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { NutricionistaOrmEntity } from './persona.entity';
+import { NutricionistaEntity } from 'src/domain/entities/Persona/Nutricionista/nutricionista.entity';
 
 @Entity('formacion_academica')
 export class FormacionAcademicaOrmEntity {
@@ -19,4 +27,12 @@ export class FormacionAcademicaOrmEntity {
 
   @Column({ name: 'nivel', type: 'varchar', length: 50 })
   nivel: string;
+
+  @ManyToOne(
+    () => NutricionistaOrmEntity,
+    (nutricionista) => nutricionista.formacionAcademica,
+    { nullable: false },
+  )
+  @JoinColumn({ name: 'id_nutricionista' })
+  nutricionista: NutricionistaEntity;
 }

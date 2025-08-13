@@ -19,19 +19,16 @@ import { GrupoAlimenticioOrmEntity } from 'src/infrastructure/persistence/typeor
 import { PlanAlimentacionOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/plan-alimentacion.entity';
 import { FormacionAcademicaOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/formacion-academica.entity';
 import { ObservacionClinicaOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/observacion-clinica.entity';
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { EnvironmentConfigService } from '../environment-config/environment-config.service';
+import { DataSource } from 'typeorm';
 import { RolOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/rol.entity';
 
-export const AppDataSource = (
-  config: EnvironmentConfigService,
-): TypeOrmModuleOptions => ({
+export const AppMigrationDataSource = new DataSource({
   type: 'mysql',
-  host: config.getDatabaseHost(),
-  port: config.getDatabasePort(),
-  username: config.getDatabaseUser(),
-  password: config.getDatabasePassword(),
-  database: config.getDatabaseName(),
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: 'root',
+  database: 'nutrifit_supervisor',
   entities: [
     AgendaOrmEntity,
     AlimentoOrmEntity,
@@ -52,7 +49,6 @@ export const AppDataSource = (
     RolOrmEntity,
   ],
   migrations: ['src/infrastructure/persistence/typeorm/migrations/*.ts'],
-  //BORRAR ESTO CUANDO SAQUE LA APP A PRODUCCION
-  synchronize: false,
+  synchronize: true,
   logging: true,
 });

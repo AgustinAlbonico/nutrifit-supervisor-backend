@@ -4,12 +4,14 @@ import {
   Entity,
   JoinTable,
   ManyToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { PatologiaEntity } from 'src/domain/entities/FichaSalud/patologia.entity';
 import { AlergiaEntity } from 'src/domain/entities/FichaSalud/alergia.entity';
-import { Type } from 'class-transformer';
+import { SocioOrmEntity } from './persona.entity';
+import { SocioEntity } from 'src/domain/entities/Persona/Socio/socio.entity';
 
 @Entity('ficha_salud')
 export class FichaSaludOrmEntity {
@@ -24,9 +26,9 @@ export class FichaSaludOrmEntity {
 
   @Column({
     name: 'fecha_creacion',
-    type: 'date',
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
   })
-  @Type(() => Date)
   fechaCreacion: Date;
 
   @Column({
@@ -43,6 +45,9 @@ export class FichaSaludOrmEntity {
     enum: NivelActividadFisica,
   })
   nivelActividadFisica: NivelActividadFisica;
+
+  @OneToOne(() => SocioOrmEntity, (socio) => socio.fichaSalud)
+  socio: SocioEntity;
 
   @ManyToMany(() => PatologiaOrmEntity, {
     eager: true,

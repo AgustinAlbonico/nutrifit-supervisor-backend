@@ -1,4 +1,3 @@
-import { UsuarioEntity } from '../Usuario/usuario.entity';
 import { Genero } from './Genero';
 
 export abstract class PersonaEntity {
@@ -11,7 +10,6 @@ export abstract class PersonaEntity {
   direccion: string;
   ciudad: string;
   provincia: string;
-  usuario: UsuarioEntity | null;
 
   constructor(
     idPersona: number | null = null,
@@ -23,7 +21,6 @@ export abstract class PersonaEntity {
     direccion: string,
     ciudad: string,
     provincia: string,
-    usuario: UsuarioEntity | null = null,
   ) {
     this.idPersona = idPersona;
     this.nombre = nombre;
@@ -34,6 +31,5 @@ export abstract class PersonaEntity {
     this.direccion = direccion;
     this.ciudad = ciudad;
     this.provincia = provincia;
-    this.usuario = usuario;
   }
 }

@@ -1,29 +1,21 @@
+import { DiaSemana } from 'src/domain/entities/Agenda/dia-semana';
+import { NutricionistaEntity } from 'src/domain/entities/Persona/Nutricionista/nutricionista.entity';
 import {
   Column,
   Entity,
-  JoinTable,
-  ManyToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { NutricionistaOrmEntity } from './persona.entity';
 
 @Entity('agenda')
 export class AgendaOrmEntity {
   @PrimaryGeneratedColumn({ name: 'id_agenda' })
   idAgenda: number;
 
-  @ManyToMany(() => DiaSemanaOrmEntity, { eager: true })
-  @JoinTable({
-    name: 'agenda_dias',
-    joinColumn: {
-      name: 'id_agenda',
-      referencedColumnName: 'idAgenda',
-    },
-    inverseJoinColumn: {
-      name: 'id_dia_semana',
-      referencedColumnName: 'idDiaSemana',
-    },
-  })
-  diasDisponibles: DiaSemanaOrmEntity[];
+  @Column({ name: 'dia', type: 'enum', enum: DiaSemana })
+  dia: DiaSemana;
 
   @Column({ type: 'time', name: 'hora_inicio' })
   horaInicio: string;
@@ -33,13 +25,10 @@ export class AgendaOrmEntity {
 
   @Column({ type: 'int', name: 'duracion_turno' })
   duracionTurno: number;
-}
 
-@Entity('dia_semana')
-export class DiaSemanaOrmEntity {
-  @PrimaryGeneratedColumn({ name: 'id_dia_semana' })
-  idDiaSemana: number;
-
-  @Column({ type: 'varchar', length: 20, unique: true })
-  nombre: string;
+  @ManyToOne(() => NutricionistaOrmEntity, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'id_nutricionista' })
+  nutricionista: NutricionistaEntity;
 }

@@ -1,5 +1,5 @@
 import { OpcionComidaEntity } from '../OpcionComida/opcion-comida.entity';
-import { NutricionistaEntity } from '../Persona/Profesional/Nutricionista/nutricionista.entity';
+import { NutricionistaEntity } from '../Persona/Nutricionista/nutricionista.entity';
 
 export class PlanAlimentacionEntity {
   idPlanAlimentacion: number | null;

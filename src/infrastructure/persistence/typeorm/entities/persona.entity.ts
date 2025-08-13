@@ -3,6 +3,7 @@ import {
   ChildEntity,
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -17,12 +18,16 @@ import { FichaSaludOrmEntity } from './ficha-salud.entity';
 import { FichaSaludEntity } from 'src/domain/entities/FichaSalud/ficha-salud.entity';
 import { PlanAlimentacionOrmEntity } from './plan-alimentacion.entity';
 import { PlanAlimentacionEntity } from 'src/domain/entities/PlanAlimentacion/plan-alimentacion.entity';
+import { UsuarioOrmEntity } from './usuario.entity';
+import { UsuarioEntity } from 'src/domain/entities/Usuario/usuario.entity';
+import { TurnoOrmEntity } from './turno.entity';
+import { TurnoEntity } from 'src/domain/entities/Turno/turno.entity';
 
 @Entity('persona')
 @TableInheritance({ column: { type: 'varchar', name: 'tipo_persona' } })
 export abstract class PersonaOrmEntity {
   @PrimaryGeneratedColumn({ name: 'id_persona' })
-  idPersona: number | null;
+  idPersona: number;
 
   @Column({ name: 'nombre', type: 'varchar', length: 100 })
   nombre: string;
@@ -51,36 +56,40 @@ export abstract class PersonaOrmEntity {
 
   @Column({ name: 'provincia', type: 'varchar', length: 100 })
   provincia: string;
+
+  @OneToOne(() => UsuarioOrmEntity, {
+    nullable: false,
+  })
+  usuario: UsuarioEntity;
 }
 
 @ChildEntity()
 export class SocioOrmEntity extends PersonaOrmEntity {
-  @OneToOne(
-    () => FichaSaludOrmEntity,
-    (fichaSalud) => fichaSalud.idFichaSalud,
-    {
-      eager: true,
-      nullable: true,
-    },
-  )
-  fichaSalud: FichaSaludEntity | null;
+  @OneToOne(() => FichaSaludOrmEntity, {
+    eager: true,
+    nullable: true,
+  })
+  @JoinColumn({ name: 'id_ficha_salud' })
+  fichaSalud?: FichaSaludEntity;
 
-  @OneToMany(
-    () => PlanAlimentacionOrmEntity,
-    (plan) => plan.idPlanAlimentacion,
-    {
-      eager: true,
-      nullable: true,
-    },
-  )
-  planesAlimentacion: PlanAlimentacionEntity[];
+  @OneToMany(() => PlanAlimentacionOrmEntity, (plan) => plan.socio, {
+    eager: true,
+    nullable: true,
+  })
+  planesAlimentacion: PlanAlimentacionEntity[] | null;
+
+  @OneToMany(() => TurnoOrmEntity, (turno) => turno.socio, {
+    eager: true,
+    nullable: true,
+  })
+  turnos: TurnoEntity[] | null;
 }
 
 @ChildEntity()
 export class AsistenteOrmEntity extends PersonaOrmEntity {}
 
 @ChildEntity()
-export abstract class ProfesionalOrmEntity extends PersonaOrmEntity {
+export abstract class NutricionistaOrmEntity extends PersonaOrmEntity {
   @Column({ name: 'matricula', type: 'varchar', length: 50, unique: true })
   matricula: string;
 
@@ -90,25 +99,31 @@ export abstract class ProfesionalOrmEntity extends PersonaOrmEntity {
   @Column({ name: 'tarifa_sesion', type: 'decimal', precision: 10, scale: 2 })
   tarifaSesion: number;
 
-  @OneToOne(() => AgendaOrmEntity, (agenda) => agenda.idAgenda, {
+  @OneToMany(() => AgendaOrmEntity, (agenda) => agenda.nutricionista, {
     eager: true,
     nullable: true,
   })
-  agenda: AgendaEntity | null;
+  agenda?: AgendaEntity[];
 
   @OneToMany(
     () => FormacionAcademicaOrmEntity,
-    (formacion) => formacion.idFormacionAcademica,
+    (formacion) => formacion.nutricionista,
     {
       eager: true,
       nullable: true,
     },
   )
   formacionAcademica: FormacionAcademicaEntity[];
+
+  @OneToMany(() => PlanAlimentacionOrmEntity, (plan) => plan.nutricionista, {
+    eager: true,
+    nullable: true,
+  })
+  planesAlimentacion: PlanAlimentacionEntity[] | null;
+
+  @OneToMany(() => TurnoOrmEntity, (turno) => turno.nutricionista, {
+    eager: true,
+    nullable: true,
+  })
+  turnos: TurnoEntity[] | null;
 }
-
-@ChildEntity()
-export class NutricionistaOrmEntity extends ProfesionalOrmEntity {}
-
-@ChildEntity()
-export class DeportologoOrmEntity extends ProfesionalOrmEntity {}

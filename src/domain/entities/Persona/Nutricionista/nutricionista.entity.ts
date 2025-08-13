@@ -1,14 +1,13 @@
 import { AgendaEntity } from '../../Agenda/agenda.entity';
 import { FormacionAcademicaEntity } from '../../FormacionAcademica/formacion-academica.entity';
 import { TurnoEntity } from '../../Turno/turno.entity';
-import { UsuarioEntity } from '../../Usuario/usuario.entity';
 import { Genero } from '../Genero';
 import { PersonaEntity } from '../persona.entity';
 
-export abstract class ProfesionalEntity extends PersonaEntity {
+export abstract class NutricionistaEntity extends PersonaEntity {
   matricula: string;
   añosExperiencia: number;
-  agenda: AgendaEntity | null;
+  agendas: AgendaEntity[];
   formacionAcademica: FormacionAcademicaEntity[];
   turnos: TurnoEntity[];
 
@@ -22,9 +21,8 @@ export abstract class ProfesionalEntity extends PersonaEntity {
     direccion: string,
     ciudad: string,
     provincia: string,
-    usuario: UsuarioEntity | null = null,
     experiencia: number,
-    agenda: AgendaEntity | null = null,
+    agendas: AgendaEntity[] = [],
     formacionAcademica: FormacionAcademicaEntity[] = [],
     turnos: TurnoEntity[] = [],
   ) {
@@ -38,10 +36,9 @@ export abstract class ProfesionalEntity extends PersonaEntity {
       direccion,
       ciudad,
       provincia,
-      usuario,
     );
     this.añosExperiencia = experiencia;
-    this.agenda = agenda;
+    this.agendas = agendas;
     this.formacionAcademica = formacionAcademica;
     this.turnos = turnos;
   }
