@@ -2,14 +2,12 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { PersonaOrmEntity } from './persona.entity';
 import { PersonaEntity } from 'src/domain/entities/Persona/persona.entity';
-import { RolOrmEntity } from './rol.entity';
-import { RolEntity } from 'src/domain/entities/Usuario/rol.entity';
+import { Rol } from 'src/domain/entities/Usuario/Rol';
 
 @Entity('usuario')
 export class UsuarioOrmEntity {
@@ -35,10 +33,6 @@ export class UsuarioOrmEntity {
   @JoinColumn({ name: 'id_persona' })
   persona: PersonaEntity;
 
-  @ManyToOne(() => RolOrmEntity, {
-    eager: true,
-    nullable: false,
-  })
-  @JoinColumn({ name: 'id_rol' })
-  rol: RolEntity;
+  @Column({ name: 'rol', type: 'enum', enum: Rol })
+  rol: Rol;
 }

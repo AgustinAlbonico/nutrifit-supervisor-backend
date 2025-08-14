@@ -20,7 +20,6 @@ import { PlanAlimentacionOrmEntity } from 'src/infrastructure/persistence/typeor
 import { FormacionAcademicaOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/formacion-academica.entity';
 import { ObservacionClinicaOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/observacion-clinica.entity';
 import { DataSource } from 'typeorm';
-import { RolOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/rol.entity';
 
 export const AppMigrationDataSource = new DataSource({
   type: 'mysql',
@@ -46,7 +45,6 @@ export const AppMigrationDataSource = new DataSource({
     PlanAlimentacionOrmEntity,
     FormacionAcademicaOrmEntity,
     ObservacionClinicaOrmEntity,
-    RolOrmEntity,
   ],
   migrations: ['src/infrastructure/persistence/typeorm/migrations/*.ts'],
   synchronize: true,

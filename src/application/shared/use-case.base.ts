@@ -1,3 +1,3 @@
-export interface UseCase<TInput = any> {
-  execute(input: TInput);
+export interface UseCase {
+  execute(...args: unknown[]): Promise<unknown>;
 }

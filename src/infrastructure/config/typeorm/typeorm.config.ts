@@ -21,7 +21,6 @@ import { FormacionAcademicaOrmEntity } from 'src/infrastructure/persistence/type
 import { ObservacionClinicaOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/observacion-clinica.entity';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { EnvironmentConfigService } from '../environment-config/environment-config.service';
-import { RolOrmEntity } from 'src/infrastructure/persistence/typeorm/entities/rol.entity';
 
 export const AppDataSource = (
   config: EnvironmentConfigService,
@@ -49,7 +48,6 @@ export const AppDataSource = (
     PlanAlimentacionOrmEntity,
     FormacionAcademicaOrmEntity,
     ObservacionClinicaOrmEntity,
-    RolOrmEntity,
   ],
   migrations: ['src/infrastructure/persistence/typeorm/migrations/*.ts'],
   //BORRAR ESTO CUANDO SAQUE LA APP A PRODUCCION

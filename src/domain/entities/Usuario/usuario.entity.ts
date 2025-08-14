@@ -1,19 +1,19 @@
 import { PersonaEntity } from '../Persona/persona.entity';
-import { RolEntity } from './rol.entity';
+import { Rol } from './Rol';
 
 export class UsuarioEntity {
   email: string;
   contraseña: string;
   fechaHoraAlta: Date;
   persona: PersonaEntity | null;
-  rol: RolEntity;
+  rol: Rol;
 
   constructor(
     email: string,
     contraseña: string,
     fechaHoraAlta: Date = new Date(),
     persona: PersonaEntity | null = null,
-    rol: RolEntity,
+    rol: Rol,
   ) {
     this.email = email;
     this.contraseña = contraseña;
