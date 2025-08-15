@@ -16,6 +16,8 @@ async function bootstrap() {
   const mainConfig = app.get(EnvironmentConfigService);
   const logger = app.get(AppLoggerService);
 
+  // app.setGlobalPrefix('api');
+
   //Pipes
   app.useGlobalPipes(
     new ValidationPipe({

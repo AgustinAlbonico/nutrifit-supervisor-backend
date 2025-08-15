@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { IUsuarioRepository } from 'src/domain/entities/Usuario/usuario.repository';
 import { UsuarioOrmEntity } from '../entities/usuario.entity';
-import { UsuarioEntity } from 'src/domain/entities/Usuario/usuario.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -11,12 +10,4 @@ export class UsuarioRepositoryImplementation implements IUsuarioRepository {
     @InjectRepository(UsuarioOrmEntity)
     private readonly userRepository: Repository<UsuarioOrmEntity>,
   ) {}
-
-  async create(user: UsuarioEntity) {
-    const { email, contraseña } = user;
-    const newUser = new UsuarioOrmEntity();
-    newUser.email = email;
-    newUser.contraseña = contraseña;
-    return this.userRepository.save(newUser);
-  }
 }

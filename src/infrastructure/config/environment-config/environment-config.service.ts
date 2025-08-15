@@ -13,6 +13,8 @@ enum VariablesEntorno {
   DATABASE_NAME = 'DATABASE_NAME',
   DATABASE_USER = 'DATABASE_USER',
   DATABASE_PASSWORD = 'DATABASE_PASSWORD',
+  JWT_SECRET = 'JWT_SECRET',
+  JWT_EXPIRES_IN = 'JWT_EXPIRES_IN',
 }
 
 @Injectable()
@@ -26,6 +28,15 @@ export class EnvironmentConfigService implements DatabaseConfig, AppConfig {
       console.log(error);
       throw new EnvironmentConfigurationError(key);
     }
+  }
+
+  //JWT
+  getJwtSecret(): string {
+    return this.getEnvironmentVariable<string>(VariablesEntorno.JWT_SECRET);
+  }
+
+  getJwtExpiresIn(): string {
+    return this.getEnvironmentVariable<string>(VariablesEntorno.JWT_EXPIRES_IN);
   }
 
   //Variables globales

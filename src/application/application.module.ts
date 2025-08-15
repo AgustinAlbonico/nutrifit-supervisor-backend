@@ -6,19 +6,6 @@ import { SociosModule } from './socios/socios.module';
 import { TurnosModule } from './turnos/turnos.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    ProfesionalesModule,
-    AgendaModule,
-    SociosModule,
-    TurnosModule,
-  ],
-  providers: [
-    AuthModule,
-    ProfesionalesModule,
-    AgendaModule,
-    SociosModule,
-    TurnosModule,
-  ],
+  imports: [AuthModule],
 })
 export class ApplicationModule {}
