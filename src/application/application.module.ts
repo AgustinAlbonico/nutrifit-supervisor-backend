@@ -7,5 +7,6 @@ import { TurnosModule } from './turnos/turnos.module';
 
 @Module({
   imports: [AuthModule],
+  exports: [AuthModule]
 })
 export class ApplicationModule {}

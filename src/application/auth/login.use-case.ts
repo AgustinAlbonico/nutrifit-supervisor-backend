@@ -1,8 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IUsuarioRepository } from 'src/domain/entities/Usuario/usuario.repository';
+import {
+  IUsuarioRepository,
+  USUARIO_REPOSITORY,
+} from 'src/domain/entities/Usuario/usuario.repository';
 import { BaseUseCase } from '../shared/use-case.base';
 import { UnauthorizedError } from 'src/domain/exceptions/custom-exceptions';
-import { IPasswordEncrypterService, PASSWORD_ENCRYPTER_SERVICE } from 'src/domain/services/password-encrypter.service';
+import {
+  IPasswordEncrypterService,
+  PASSWORD_ENCRYPTER_SERVICE,
+} from 'src/domain/services/password-encrypter.service';
 
 interface LoginPayload {
   email: string;
@@ -12,6 +18,7 @@ interface LoginPayload {
 @Injectable()
 export class LoginUseCase implements BaseUseCase {
   constructor(
+    @Inject(USUARIO_REPOSITORY)
     private readonly userRepository: IUsuarioRepository,
     @Inject(PASSWORD_ENCRYPTER_SERVICE)
     private readonly passwordEncrypter: IPasswordEncrypterService,

@@ -13,6 +13,6 @@ import {  PASSWORD_ENCRYPTER_SERVICE } from 'src/domain/services/password-encryp
     },
     LoginUseCase,
   ],
-  exports: [],
+  exports: [LoginUseCase],
 })
 export class AuthModule {}

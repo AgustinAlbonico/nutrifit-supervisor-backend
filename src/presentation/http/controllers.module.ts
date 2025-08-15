@@ -10,7 +10,7 @@ import {
 import { AuthModule } from 'src/application/auth/auth.module';
 
 @Module({
-  imports: [AppLoggerModule, ApplicationModule],
+  imports: [ AppLoggerModule, ApplicationModule],
   providers: [],
   controllers: [ProfesionalController, SocioController, AuthController],
 })
