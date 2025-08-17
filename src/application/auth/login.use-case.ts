@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
-  IUsuarioRepository,
   USUARIO_REPOSITORY,
+  UsuarioRepository,
 } from 'src/domain/entities/Usuario/usuario.repository';
 import { BaseUseCase } from '../shared/use-case.base';
 import { UnauthorizedError } from 'src/domain/exceptions/custom-exceptions';
@@ -9,36 +9,55 @@ import {
   IPasswordEncrypterService,
   PASSWORD_ENCRYPTER_SERVICE,
 } from 'src/domain/services/password-encrypter.service';
-
-interface LoginPayload {
-  email: string;
-  password: string;
-}
+import { IJwtService, JWT_SERVICE } from 'src/domain/services/jwt.service';
+import { JwtPayload } from 'jsonwebtoken';
+import {
+  APP_LOGGER_SERVICE,
+  IAppLoggerService,
+} from 'src/domain/services/logger.service';
+import { LoginDto } from './dtos/login.dto';
 
 @Injectable()
 export class LoginUseCase implements BaseUseCase {
   constructor(
     @Inject(USUARIO_REPOSITORY)
-    private readonly userRepository: IUsuarioRepository,
+    private readonly userRepository: UsuarioRepository,
     @Inject(PASSWORD_ENCRYPTER_SERVICE)
     private readonly passwordEncrypter: IPasswordEncrypterService,
+    @Inject(JWT_SERVICE)
+    private readonly jwtService: IJwtService,
+    @Inject(APP_LOGGER_SERVICE)
+    private readonly loggerService: IAppLoggerService,
   ) {}
 
-  async execute(payload: LoginPayload): Promise<{ token: string }> {
-    const { email, password } = payload;
+  async execute(payload: LoginDto): Promise<{ token: string }> {
+    this.loggerService.log(
+      'LoginUseCase: Ejecutando el caso de uso de login para el usuario: ' +
+        payload.email,
+    );
+    const { email, contraseña } = payload;
 
-    // const user = await this.userRepository.findByEmail(email);
-    // if (!user) throw new UnauthorizedError('No se encontró el usuario');
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) throw new UnauthorizedError('No se encontró el usuario');
 
-    // const isPasswordValid = await this.passwordEncrypter.comparePasswords(
-    //   password,
-    //   user.contraseña,
-    // );
-    // if (!isPasswordValid) throw new UnauthorizedError('Contraseña incorrecta');
+    const isPasswordValid = await this.passwordEncrypter.comparePasswords(
+      contraseña,
+      user.contraseña,
+    );
+    if (!isPasswordValid) throw new UnauthorizedError('Contraseña incorrecta');
 
-    const encryptedPassword =
-      await this.passwordEncrypter.encryptPassword(password);
+    const jwtPayload: JwtPayload = {
+      id: user.idUsuario,
+      email: user.email,
+      rol: user.rol,
+    };
 
-    return { token: encryptedPassword };
+    const token = this.jwtService.sign(jwtPayload);
+
+    this.loggerService.log(
+      'LoginUseCase: Login exitoso para el usuario: ' + user.email,
+    );
+
+    return { token };
   }
 }

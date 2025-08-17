@@ -1,7 +1,8 @@
-import { Injectable, Logger, LoggerService } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
+import { IAppLoggerService } from 'src/domain/services/logger.service';
 
 @Injectable()
-export class AppLoggerService extends Logger implements LoggerService {
+export class AppLoggerService extends Logger implements IAppLoggerService {
   log(message: string) {
     super.log(`[LOG] ${message}`);
   }

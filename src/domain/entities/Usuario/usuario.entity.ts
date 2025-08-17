@@ -2,6 +2,7 @@ import { PersonaEntity } from '../Persona/persona.entity';
 import { Rol } from './Rol';
 
 export class UsuarioEntity {
+  idUsuario: number | null;
   email: string;
   contraseña: string;
   fechaHoraAlta: Date;
@@ -9,15 +10,16 @@ export class UsuarioEntity {
   rol: Rol;
 
   constructor(
+    idUsuario: number | null = null,
     email: string,
     contraseña: string,
-    fechaHoraAlta: Date = new Date(),
     persona: PersonaEntity | null = null,
     rol: Rol,
   ) {
+    this.idUsuario = idUsuario;
     this.email = email;
     this.contraseña = contraseña;
-    this.fechaHoraAlta = fechaHoraAlta;
+    this.fechaHoraAlta = new Date();
     this.persona = persona;
     this.rol = rol;
   }

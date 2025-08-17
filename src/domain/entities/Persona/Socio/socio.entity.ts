@@ -6,10 +6,9 @@ import { PersonaEntity } from '../persona.entity';
 
 export class SocioEntity extends PersonaEntity {
   fechaAlta: Date;
-  fechaBaja: Date | null;
   turnos: TurnoEntity[];
   fichaSalud: FichaSaludEntity | null;
-  planesAlimentacion: PlanAlimentacionEntity[] | null;
+  planesAlimentacion: PlanAlimentacionEntity[];
 
   constructor(
     idPersona: number | null = null,
@@ -21,11 +20,9 @@ export class SocioEntity extends PersonaEntity {
     direccion: string,
     ciudad: string,
     provincia: string,
-    fechaAlta: Date,
-    fechaBaja: Date | null,
     turnos: TurnoEntity[] = [],
     fichaSalud: FichaSaludEntity | null = null,
-    planesAlimentacion: PlanAlimentacionEntity[] | null = null,
+    planesAlimentacion: PlanAlimentacionEntity[] = [],
   ) {
     super(
       idPersona,
@@ -38,8 +35,7 @@ export class SocioEntity extends PersonaEntity {
       ciudad,
       provincia,
     );
-    this.fechaAlta = fechaAlta;
-    this.fechaBaja = fechaBaja;
+    this.fechaAlta = new Date();
     this.turnos = turnos;
     this.fichaSalud = fichaSalud;
     this.planesAlimentacion = planesAlimentacion;

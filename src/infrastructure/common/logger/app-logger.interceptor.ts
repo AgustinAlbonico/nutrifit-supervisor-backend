@@ -4,14 +4,21 @@ import {
   NestInterceptor,
   ExecutionContext,
   CallHandler,
-  LoggerService,
+  Inject,
 } from '@nestjs/common';
 import { Observable, tap } from 'rxjs';
 import { Request } from 'express';
+import {
+  APP_LOGGER_SERVICE,
+  IAppLoggerService,
+} from 'src/domain/services/logger.service';
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-  constructor(private readonly logger: LoggerService) {}
+  constructor(
+    @Inject(APP_LOGGER_SERVICE)
+    private readonly logger: IAppLoggerService,
+  ) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const now = Date.now();

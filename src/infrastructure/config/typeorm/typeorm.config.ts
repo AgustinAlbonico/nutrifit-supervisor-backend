@@ -48,8 +48,11 @@ export const AppDataSource = (
     PlanAlimentacionOrmEntity,
     FormacionAcademicaOrmEntity,
     ObservacionClinicaOrmEntity,
+    SocioOrmEntity,
+    NutricionistaOrmEntity,
+    AsistenteOrmEntity,
   ],
   //BORRAR ESTO CUANDO SAQUE LA APP A PRODUCCION
   synchronize: false,
-  logging: true,
+  logging: false,
 });

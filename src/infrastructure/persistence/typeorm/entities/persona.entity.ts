@@ -27,7 +27,7 @@ import { TurnoEntity } from 'src/domain/entities/Turno/turno.entity';
 @TableInheritance({ column: { type: 'varchar', name: 'tipo_persona' } })
 export abstract class PersonaOrmEntity {
   @PrimaryGeneratedColumn({ name: 'id_persona' })
-  idPersona: number;
+  idPersona: number | null;
 
   @Column({ name: 'nombre', type: 'varchar', length: 100 })
   nombre: string;
@@ -42,9 +42,6 @@ export abstract class PersonaOrmEntity {
   @Column({ name: 'genero', type: 'enum', enum: Genero })
   genero: Genero;
 
-  @Column({ name: 'email', type: 'varchar', length: 100, unique: true })
-  email: string;
-
   @Column({ name: 'telefono', type: 'varchar', length: 15 })
   telefono: string;
 
@@ -58,31 +55,36 @@ export abstract class PersonaOrmEntity {
   provincia: string;
 
   @OneToOne(() => UsuarioOrmEntity, {
-    nullable: false,
+    nullable: true,
   })
-  usuario: UsuarioEntity;
+  usuario: UsuarioEntity | null;
 }
 
 @ChildEntity()
 export class SocioOrmEntity extends PersonaOrmEntity {
+  @Column({ name: 'fecha_alta', type: 'date' })
+  @Type(() => Date)
+  fechaAlta: Date;
+
   @OneToOne(() => FichaSaludOrmEntity, {
-    eager: true,
+    eager: false,
     nullable: true,
+    lazy: false,
   })
   @JoinColumn({ name: 'id_ficha_salud' })
-  fichaSalud?: FichaSaludEntity;
+  fichaSalud: FichaSaludEntity | null;
 
   @OneToMany(() => PlanAlimentacionOrmEntity, (plan) => plan.socio, {
-    eager: true,
-    nullable: true,
+    eager: false,
+    lazy: false,
   })
-  planesAlimentacion: PlanAlimentacionEntity[] | null;
+  planesAlimentacion: PlanAlimentacionEntity[];
 
   @OneToMany(() => TurnoOrmEntity, (turno) => turno.socio, {
-    eager: true,
-    nullable: true,
+    eager: false,
+    lazy: false,
   })
-  turnos: TurnoEntity[] | null;
+  turnos: TurnoEntity[];
 }
 
 @ChildEntity()
@@ -100,7 +102,7 @@ export abstract class NutricionistaOrmEntity extends PersonaOrmEntity {
   tarifaSesion: number;
 
   @OneToMany(() => AgendaOrmEntity, (agenda) => agenda.nutricionista, {
-    eager: true,
+    eager: false,
     nullable: true,
   })
   agenda?: AgendaEntity[];

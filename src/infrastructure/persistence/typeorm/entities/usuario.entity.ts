@@ -12,7 +12,7 @@ import { Rol } from 'src/domain/entities/Usuario/Rol';
 @Entity('usuario')
 export class UsuarioOrmEntity {
   @PrimaryGeneratedColumn({ name: 'id_usuario' })
-  idUsuario: number;
+  idUsuario: number | null;
 
   @Column({ name: 'email', type: 'varchar', length: 255, unique: true })
   email: string;
@@ -28,7 +28,7 @@ export class UsuarioOrmEntity {
   fechaHoraAlta: Date;
 
   @OneToOne(() => PersonaOrmEntity, {
-    eager: true,
+    eager: false,
   })
   @JoinColumn({ name: 'id_persona' })
   persona: PersonaEntity;

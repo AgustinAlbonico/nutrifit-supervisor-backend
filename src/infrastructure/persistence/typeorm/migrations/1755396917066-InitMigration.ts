@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class InitMigration1755199417694 implements MigrationInterface {
-  name = 'InitMigration1755199417694';
+export class InitMigration1755396917066 implements MigrationInterface {
+  name = 'InitMigration1755396917066';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
@@ -38,19 +38,11 @@ export class InitMigration1755199417694 implements MigrationInterface {
       `CREATE TABLE \`turno\` (\`id_turno\` int NOT NULL AUTO_INCREMENT, \`fecha\` date NOT NULL, \`hora_turno\` varchar(10) NOT NULL, \`estado\` enum ('PENDIENTE', 'CONFIRMADO', 'CANCELADO', 'REALIZADO', 'AUSENTE', 'REPROGRAMADO') NOT NULL, \`id_observacion\` int NULL, \`id_socio\` int NOT NULL, \`id_nutricionista\` int NOT NULL, UNIQUE INDEX \`REL_9be9fbc2d26ef165f67571ef12\` (\`id_observacion\`), PRIMARY KEY (\`id_turno\`)) ENGINE=InnoDB`,
     );
     await queryRunner.query(
-      `CREATE TABLE \`persona\` (\`id_persona\` int NOT NULL AUTO_INCREMENT, \`nombre\` varchar(100) NOT NULL, \`apellido\` varchar(100) NOT NULL, \`fecha_nacimiento\` date NOT NULL, \`genero\` enum ('Masculino', 'Femenino', 'Otro') NOT NULL, \`email\` varchar(100) NOT NULL, \`telefono\` varchar(15) NOT NULL, \`direccion\` varchar(255) NOT NULL, \`ciudad\` varchar(100) NOT NULL, \`provincia\` varchar(100) NOT NULL, \`matricula\` varchar(50) NULL, \`anios_experiencia\` int NULL, \`tarifa_sesion\` decimal(10,2) NULL, \`tipo_persona\` varchar(255) NOT NULL, \`id_ficha_salud\` int NULL, UNIQUE INDEX \`IDX_86ae2f9d6da4482363f832340b\` (\`email\`), UNIQUE INDEX \`IDX_b9000711e4ac11ef438c9f405d\` (\`matricula\`), UNIQUE INDEX \`REL_db90e04e1d41b8184641cd0c43\` (\`id_ficha_salud\`), INDEX \`IDX_36e1631311d9cb31089523a5c8\` (\`tipo_persona\`), PRIMARY KEY (\`id_persona\`)) ENGINE=InnoDB`,
+      `CREATE TABLE \`persona\` (\`id_persona\` int NOT NULL AUTO_INCREMENT, \`nombre\` varchar(100) NOT NULL, \`apellido\` varchar(100) NOT NULL, \`fecha_nacimiento\` date NOT NULL, \`genero\` enum ('MASCULINO', 'FEMENINO', 'OTRO') NOT NULL, \`telefono\` varchar(15) NOT NULL, \`direccion\` varchar(255) NOT NULL, \`ciudad\` varchar(100) NOT NULL, \`provincia\` varchar(100) NOT NULL, \`fecha_alta\` date NULL, \`matricula\` varchar(50) NULL, \`anios_experiencia\` int NULL, \`tarifa_sesion\` decimal(10,2) NULL, \`tipo_persona\` varchar(255) NOT NULL, \`id_ficha_salud\` int NULL, UNIQUE INDEX \`IDX_b9000711e4ac11ef438c9f405d\` (\`matricula\`), UNIQUE INDEX \`REL_db90e04e1d41b8184641cd0c43\` (\`id_ficha_salud\`), INDEX \`IDX_36e1631311d9cb31089523a5c8\` (\`tipo_persona\`), PRIMARY KEY (\`id_persona\`)) ENGINE=InnoDB`,
     );
-    await queryRunner.query(`CREATE TABLE \`agenda\` (
-    \`id_agenda\` int NOT NULL AUTO_INCREMENT,
-    \`dia\` enum ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo') NOT NULL,
-    \`hora_inicio\` time NOT NULL,
-    \`hora_fin\` time NOT NULL,
-    \`duracion_turno\` int NOT NULL,
-    \`id_nutricionista\` int NOT NULL,
-    PRIMARY KEY (\`id_agenda\`),
-    UNIQUE KEY \`UQ_agenda_dia_nutricionista\` (\`dia\`, \`id_nutricionista\`)
-) ENGINE=InnoDB`);
-
+    await queryRunner.query(
+      `CREATE TABLE \`agenda\` (\`id_agenda\` int NOT NULL AUTO_INCREMENT, \`dia\` enum ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo') NOT NULL, \`hora_inicio\` time NOT NULL, \`hora_fin\` time NOT NULL, \`duracion_turno\` int NOT NULL, \`id_nutricionista\` int NOT NULL, PRIMARY KEY (\`id_agenda\`)) ENGINE=InnoDB`,
+    );
     await queryRunner.query(
       `CREATE TABLE \`ficha_salud_patologias\` (\`id_ficha_salud\` int NOT NULL, \`id_patologia\` int NOT NULL, INDEX \`IDX_5bf46ddbfe209c294727edc541\` (\`id_ficha_salud\`), INDEX \`IDX_a8ad649ae6b21f3fd7b8bae27b\` (\`id_patologia\`), PRIMARY KEY (\`id_ficha_salud\`, \`id_patologia\`)) ENGINE=InnoDB`,
     );
@@ -211,9 +203,6 @@ export class InitMigration1755199417694 implements MigrationInterface {
     );
     await queryRunner.query(
       `DROP INDEX \`IDX_b9000711e4ac11ef438c9f405d\` ON \`persona\``,
-    );
-    await queryRunner.query(
-      `DROP INDEX \`IDX_86ae2f9d6da4482363f832340b\` ON \`persona\``,
     );
     await queryRunner.query(`DROP TABLE \`persona\``);
     await queryRunner.query(

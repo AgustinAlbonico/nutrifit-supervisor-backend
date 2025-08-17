@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
-import { ApplicationModule } from 'src/application/application.module';
-import { AppLoggerModule } from 'src/infrastructure/common/logger/app-logger.module';
-
 import {
   AuthController,
   ProfesionalController,
   SocioController,
 } from './controllers';
-import { AuthModule } from 'src/application/auth/auth.module';
+import { ApplicationModule } from 'src/application/application.module';
+import { AppLoggerModule } from 'src/infrastructure/common/logger/app-logger.module';
 
 @Module({
-  imports: [ AppLoggerModule, ApplicationModule],
+  imports: [ApplicationModule, AppLoggerModule],
   providers: [],
-  controllers: [ProfesionalController, SocioController, AuthController],
+  controllers: [AuthController, SocioController, ProfesionalController],
 })
 export class ControllersModule {}

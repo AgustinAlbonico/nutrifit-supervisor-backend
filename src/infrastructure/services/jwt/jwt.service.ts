@@ -1,27 +1,22 @@
-// import { Injectable } from '@nestjs/common';
-// import { JwtService } from '@nestjs/jwt';
-// import {
-//   IJwtService,
-//   IJwtServicePayload,
-// } from '../../../domain/adapters/jwt.interface';
+import { Injectable } from '@nestjs/common';
+import { IJwtService } from 'src/domain/services/jwt.service';
+import { JwtService as NestJwtService } from '@nestjs/jwt';
+import { UnauthorizedError } from 'src/domain/exceptions/custom-exceptions';
 
-// @Injectable()
-// export class JwtTokenService implements IJwtService {
-//   constructor(private readonly jwtService: JwtService) {}
+@Injectable()
+export class JwtServiceImpl implements IJwtService {
+  constructor(private readonly jwtService: NestJwtService) {}
 
-//   async checkToken(token: string): Promise<any> {
-//     const decode = await this.jwtService.verifyAsync(token);
-//     return decode;
-//   }
+  sign(payload: object): string {
+    return this.jwtService.sign(payload);
+  }
 
-//   createToken(
-//     payload: IJwtServicePayload,
-//     secret: string,
-//     expiresIn: string,
-//   ): string {
-//     return this.jwtService.sign(payload, {
-//       secret: secret,
-//       expiresIn: expiresIn,
-//     });
-//   }
-// }
+  verify<T extends object>(token: string): T {
+    try {
+      return this.jwtService.verify<T>(token);
+    } catch (error) {
+      console.error('Error verifying JWT:', error);
+      throw new UnauthorizedError('Token invalido o expirado');
+    }
+  }
+}
