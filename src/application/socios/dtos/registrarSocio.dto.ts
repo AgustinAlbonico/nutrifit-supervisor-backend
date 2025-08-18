@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import {
   IsDateString,
   IsEmail,
@@ -25,7 +26,7 @@ export class RegistrarSocioDto {
   apellido: string;
 
   @IsDateString()
-  fechaNacimiento: Date;
+  fechaNacimiento: string;
 
   @IsString()
   @IsNotEmpty()

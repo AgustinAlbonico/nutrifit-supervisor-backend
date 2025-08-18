@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { EntityManager, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SocioOrmEntity } from '../entities/persona.entity';
 import { SocioEntity } from 'src/domain/entities/Persona/Socio/socio.entity';
@@ -13,20 +13,9 @@ export class SocioRepositoryImplementation implements SocioRepository {
   ) {}
 
   async save(entity: SocioEntity): Promise<SocioEntity> {
-    const socioOrmEntity = new SocioOrmEntity();
-    socioOrmEntity.idPersona = null;
-    socioOrmEntity.nombre = entity.nombre;
-    socioOrmEntity.apellido = entity.apellido;
-    socioOrmEntity.fechaNacimiento = entity.fechaNacimiento;
-    socioOrmEntity.genero = entity.genero;
-    socioOrmEntity.ciudad = entity.ciudad;
-    socioOrmEntity.provincia = entity.provincia;
-    socioOrmEntity.telefono = entity.telefono;
-    socioOrmEntity.direccion = entity.direccion;
-    socioOrmEntity.fichaSalud = null;
-    socioOrmEntity.planesAlimentacion = [];
-    socioOrmEntity.turnos = [];
-    const socioCreado = await this.socioRepository.save(entity);
+    const socioCreado = await this.socioRepository.save(
+      this.toOrmEntity(entity),
+    );
     return socioCreado;
   }
 
@@ -40,5 +29,22 @@ export class SocioRepositoryImplementation implements SocioRepository {
 
   async findAll(): Promise<SocioEntity[]> {
     return [];
+  }
+
+  private toOrmEntity(socio: SocioEntity) {
+    const socioOrmEntity = new SocioOrmEntity();
+    socioOrmEntity.idPersona = null;
+    socioOrmEntity.nombre = socio.nombre;
+    socioOrmEntity.apellido = socio.apellido;
+    socioOrmEntity.fechaNacimiento = socio.fechaNacimiento;
+    socioOrmEntity.genero = socio.genero;
+    socioOrmEntity.ciudad = socio.ciudad;
+    socioOrmEntity.provincia = socio.provincia;
+    socioOrmEntity.telefono = socio.telefono;
+    socioOrmEntity.direccion = socio.direccion;
+    socioOrmEntity.fichaSalud = null;
+    socioOrmEntity.planesAlimentacion = [];
+    socioOrmEntity.turnos = [];
+    return socioOrmEntity;
   }
 }

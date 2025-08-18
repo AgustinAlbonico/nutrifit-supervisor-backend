@@ -16,6 +16,7 @@ import {
   IAppLoggerService,
 } from 'src/domain/services/logger.service';
 import { LoginDto } from './dtos/login.dto';
+import { Rol } from 'src/domain/entities/Usuario/Rol';
 
 @Injectable()
 export class LoginUseCase implements BaseUseCase {
@@ -30,7 +31,7 @@ export class LoginUseCase implements BaseUseCase {
     private readonly loggerService: IAppLoggerService,
   ) {}
 
-  async execute(payload: LoginDto): Promise<{ token: string }> {
+  async execute(payload: LoginDto): Promise<{ token: string; rol: Rol }> {
     this.loggerService.log(
       'LoginUseCase: Ejecutando el caso de uso de login para el usuario: ' +
         payload.email,
@@ -58,6 +59,6 @@ export class LoginUseCase implements BaseUseCase {
       'LoginUseCase: Login exitoso para el usuario: ' + user.email,
     );
 
-    return { token };
+    return { token, rol: user.rol };
   }
 }

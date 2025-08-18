@@ -55,7 +55,7 @@ export class RegistrarSocioUseCase implements BaseUseCase {
       null,
       nombre,
       apellido,
-      fechaNacimiento,
+      new Date(fechaNacimiento),
       telefono,
       genero,
       direccion,

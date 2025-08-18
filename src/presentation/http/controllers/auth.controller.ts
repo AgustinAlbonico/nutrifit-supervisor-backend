@@ -17,7 +17,9 @@ export class AuthController {
   async login(@Body() body: LoginDto) {
     this.logger.log(`Intentando loguear al usuario con email: ${body.email}`);
     const res = await this.loginUseCase.execute(body);
-    this.logger.log(`Login correcto para el usuario con email: ${body.email}`);
+    this.logger.log(
+      `Login correcto para el usuario con email: ${body.email}, tiene el rol de ${res.rol}`,
+    );
     return res;
   }
 }

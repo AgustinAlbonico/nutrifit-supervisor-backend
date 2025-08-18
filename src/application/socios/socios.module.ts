@@ -1,9 +1,7 @@
 import { Module } from '@nestjs/common';
-import { RepositoriesModule } from 'src/infrastructure/persistence/typeorm/repositories/repositories.module';
 import { RegistrarSocioUseCase } from './registrarSocio.use-case';
 import { AppLoggerModule } from 'src/infrastructure/common/logger/app-logger.module';
 import { PasswordEncrypterModule } from 'src/infrastructure/services/bcrypt/bcrypt.module';
-import { TypeOrmConfigModule } from 'src/infrastructure/config/typeorm/typeorm.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   SocioOrmEntity,
